@@ -1,0 +1,27 @@
+name: Docker Image CI
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: Build the Docker image
+      run: docker build . --file ./docker/wvp/Dockerfile --tag harbor.tongjijs.com/library/ttgzs/wvp:$(date +%s)
+    - name: login tjjs     
+      uses: docker/login-action@v3.2.0
+      with:
+        registry: ${{ secrets.TJJS_HARBOR_HOST }}
+        Username: ${{ secrets.TJJS_HARBOR_USERNAME }}
+        password: ${{ secrets.TJJS_HARBOR_PWD }}
+        logout: false
+    - name: push image
+      run: docker push harbor.tongjijs.com/library/ttgzs/wvp:$(date+%s)
