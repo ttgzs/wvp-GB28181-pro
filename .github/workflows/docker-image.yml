@@ -15,7 +15,7 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     - name: Build the Docker image
-      run: docker build . --file ./docker/wvp/Dockerfile --tag harbor.tongjijs.com/library/ttgzs/wvp:$(date +%s)
+      run: docker build . --file ./docker/wvp/Dockerfile --tag harbor.tongjijs.com/library/ttgzs/wvp:2.7.0
     - name: login tjjs     
       uses: docker/login-action@v3.2.0
       with:
