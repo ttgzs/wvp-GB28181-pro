@@ -34,5 +34,10 @@ jobs:
         password: ${{ secrets.TJJS_HARBOR_PWD }}
         logout: false     
    
-    - name: Push docker image 
+    - name: Push  docker image 
       run: docker push ${{ secrets.TJJS_HARBOR_HOST }}/library/ttgzs/wvp:${{inputs.version}}
+    
+    - name: Push  base Ubuntu20.04 image 
+      run: docker tag ubuntu:20.04 ${{ secrets.TJJS_HARBOR_HOST }}/library/ubuntu:20.04-build
+    - name: Push Ununtu to harbor
+      run: docker push ${{ secrets.TJJS_HARBOR_HOST }}/library/ubuntu:20.04-build 
